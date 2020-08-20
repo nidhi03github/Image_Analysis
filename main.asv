@@ -1,0 +1,100 @@
+function main
+
+%read Dicom image and convert it into jpg and save in converted forlder
+
+cd C:\MATLAB701\work\final_project\images\dicom
+imagename = input('\n Enter the name of the imagel filename.ext) : ','s');
+% Read the DICOM image
+Y = dicomread(imagename);
+% convert to a double positive image
+P = im2double(Y);
+% derive a negative image
+N = 1-P;
+% show positive with poor contrast
+%imshow(P);
+% show positive with adjusted contrast
+%imshow(imadjust(P));
+% show negative with poor contrast
+%imshow(N);
+% show negative with adjusted contrast
+%imshow(imadjust(N));
+% save adjusted posative as jpg
+cd C:\MATLAB701\work\final_project\images\convertedimage
+ 
+cix = strrep(imagename,'.dcm', '.jpg')
+ 
+imwrite(imadjust(P),sprintf('%s', cix),'jpg');
+    
+ 
+%imwrite(imadjust(P), ciy, 'jpg');
+imshow(cix)
+
+
+
+% LBP operator
+
+cd C:\MATLAB701\work\final_project\lbp
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% second part
+
+copyfile('C:\MATLAB701\work\final_project\images\convertedimage\000054.jpg','C:\MATLAB701\work\final_project\template_match\input.jpg');
+cd C:\MATLAB701\work\final_project\template_match
+system('runtest.bat');
+cd C:\MATLAB701\work\final_project\images\output
+count = count+1
+I = int2str(count)
+mkdir(I)
+
+
+%%%%%moving result to template folder%%%%%%%%%
+for i = 1:4
+    
+    %source path
+    pathname = 'C:\MATLAB701\work\final_project\template_match\';
+    ix = int2str(i);
+    iy = '.jpg';
+    source = strcat(pathname,ix,iy)
+ 
+    %destination path
+    outputpath = 'C:\MATLAB701\work\final_project\images\output\';
+    ox = I;
+    oy = '\';
+    oz = int2str(i);
+    of = '.jpg';
+ 
+destination = strcat(outputpath,ox,oy,oz,of)
+ 
+movefile(source,destination);
+end
+ 
+
+
+ 
+ 
+
+
+
+
+
